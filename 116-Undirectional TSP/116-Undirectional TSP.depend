@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1415875441 source:c:\users\paulo\desktop\malmö\advanced programming\116-undirectional tsp\main.c
+	<stdlib.h>
+	<stdio.h>
+

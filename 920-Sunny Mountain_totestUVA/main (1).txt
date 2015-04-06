@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+
+typedef struct
+{
+    int x, y;
+
+}t_Coord;
+
+
+int main()
+{
+
+    int C,N; 
+    int i,j; 
+    scanf("%d", &C);
+    while(C--)
+    {
+        scanf("%d",&N);
+        t_Coord point[N]; 
+
+        for(i = 0; i < N; i++)
+        {
+            scanf("%d %d", &point[i].x, &point[i].y); 
+        }
+
+        for(i = N - 2; i >= 0; i--)
+        {
+            for(j = 0; j<(i+1); j++)
+            {
+                if(point[j + 1].x > point[j].x)
+                {
+                    t_Coord current = point[j + 1];
+                    point[j + 1] = point[j];
+                    point[j] = current;
+                }
+            }
+        }
+        int highSun = 0;
+        double sun = 0;
+
+        for(i = 1; i < N; i++)
+        {
+            if(point[i].y > highSun)
+            {
+                
+                double x, y;
+                x = point[i].x - (double)(point[i].x-point[i-1].x)*(point[i].y-highSun)/(point[i].y-point[i-1].y);
+                y = highSun;
+                sun += sqrt((x-point[i].x)*(x-point[i].x) + (y-point[i].y)*(y-point[i].y)); 
+                highSun = point[i].y; 
+            }
+        }
+        printf("%.2lf\n", sun);
+    }
+    return 0;
+}

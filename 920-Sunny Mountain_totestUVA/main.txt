@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main()
+{
+    int x[2000]; /// co-ordinate x of the point
+    int y[2000]; /// co-ordinate y of the point
+    int n; /// Number of points for each case
+    int pos, neg; /// Counters
+    int i, res; /// I = counters ; res = resultat of the colinearity calcul
+
+    /// While the number of points is not 0
+    while (scanf("%d", &n) == 1 && n > 0)
+    {
+        /// initialize counters to 0
+        pos=0;
+        neg=0;
+        res=0;
+
+        /// Fill the co ordinate for each n points
+        for (i = 0; i < n; i++)
+        {
+            scanf("%d %d", &x[i], &y[i]);
+        }
+
+
+        /// For the calcul of colinearity, we need point with indice n, n+1 and n+2
+        /// so for last point in input we need point[0] and point[1]
+        /// Add at the end of co ordinates these points (to make it easier for lasts points.
+
+        /// Add point 0 at index n
+        x[n] = x[0];
+        y[n] = y[0];
+
+        /// Add point 1 at index n+1
+        x[n + 1] = x[1];
+        y[n + 1] = y[1];
+
+        /// For each point in n, calcule the colinearity of 3 points.
+        for (i=0; i<n; i++)
+        {
+            res = (x[i + 1] - x[i]) * (y[i + 2] - y[i]) - (x[i + 2] - x[i]) * (y[i + 1] - y[i]);
+            if (res > 0)
+            {
+                pos++;
+            }
+
+            else if (res < 0)
+            {
+                neg++;
+            }
+        }
+
+        /// If there is no critical point, res was always positive or negative, so one of these two values is 0
+        if (pos == 0 || neg == 0)
+        {
+            printf("No\n");
+        }
+        else printf("Yes\n");
+    }
+    return 0;
+}
